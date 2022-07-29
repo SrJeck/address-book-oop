@@ -41,8 +41,8 @@ class AddressContactRepository(FileRepository):
 
 
     def find_address_contact(self, name):
-        stringComparer = lambda a,b : (a.lower() == b or b == "")
+        stringComparer = lambda a,b : (a.lower().find(b) or b == "")
 
-        result = filter(lambda entry : stringComparer(entry.get("name", ""),name), self.get_address_contacts()["details"] )
+        result = filter(lambda entry : stringComparer(entry.get("name", ""),name) or stringComparer(entry.get("address", ""),name) , self.get_address_contacts()["details"] )
 
         return list(result)
